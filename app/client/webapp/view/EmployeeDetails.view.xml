@@ -1,0 +1,122 @@
+<!-- <mvc:View
+    controllerName="com.sap.client.controller.EmployeeDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page
+                    id="page"
+                    title="Employee Details"
+                >
+                <content>
+
+
+                </content>
+
+
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View> -->
+
+
+<mvc:View
+   controllerName="com.sap.client.controller.EmployeeDetails"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:f="sap.f"
+   xmlns:card="sap.f.cards"
+>
+   <Page title="Employee Details"  showNavButton="true" navButtonPress="onNavBack">
+   
+   
+   <headerContent>
+        <Button text="Edit" press="onEdit"></Button>
+     
+
+   </headerContent>
+      <ObjectHeader intro="Employee ID" title="{EmployeeData>/EmployeeDetail/Id}" />
+      <!-- <ObjectHeader intro="Employee ID" title="Heading" /> -->
+
+      <f:Card class="sapUiMediumMargin" width="40%" height="auto">
+         <f:header>
+            <card:Header title="{EmployeeData>/EmployeeDetail/First_Name}  {EmployeeData>/EmployeeDetail/Last_Name}" subtitle="{EmployeeData>/Id}" iconSrc="sap-icon://employee-pane" />
+         </f:header>
+         <f:content 
+        >
+            
+            <VBox>
+               <ObjectAttribute title="First Name" text="{EmployeeData>/EmployeeDetail/First_Name}" class="sapUiSmallMargin" />
+               <ObjectAttribute title="Last Name" text="{EmployeeData>/EmployeeDetail/Last_Name}"  class="sapUiSmallMargin"/>
+               <ObjectAttribute title="Phone Number" text="{EmployeeData>/EmployeeDetail/Employee_Phone_Number}" class="sapUiSmallMargin" />
+               <ObjectAttribute title="Email" text="{EmployeeData>/EmployeeDetail/Email}" class="sapUiSmallMargin" />
+               <ObjectAttribute title="Employee Department " text="{EmployeeData>/EmployeeDetail/Department}" class="sapUiSmallMargin" />
+               
+            </VBox>
+         
+         </f:content>
+       
+      </f:Card>
+
+      <!-- iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii -->
+                    <dependents>
+                        <Dialog
+                            id="OpenDialog"
+                            title="Create Sales Order"
+                        >
+                            <buttons>
+                                <Button
+                                    id="confirmCreate"
+                                    text="Create"
+                                    press=".onCreate"
+                                    type="Emphasized"
+                                />
+                                <Button
+                                    id="cancelCreate"
+                                    text="Cancel"
+                                    press="onCancelDialog"
+                                    type="Transparent"
+                                />
+                            </buttons>
+
+                                <content>
+                                    <Label
+                                        text="Employee Id"
+                                        required="true"
+                                    />
+                                    <Input
+                                        id="Id"
+                                        change="onIdChange"
+                                        type="Number"
+                                    />
+                                    <Label text="First Name" required="true"/>
+                                    <Input
+                                        id="FirstName"                                   
+                                    />
+                                    <Label text="Last Name" required="true"/>
+                                    <Input
+                                        id="LastName"                                 
+                                    />
+                                    <Label text="Mobile Number" required="true"/>
+                                    <Input
+                                        id="MobileNumber"                                  
+                                    />
+                                    <Label text="Email" required="true"/>
+                                    <Input
+                                        id="Email"                              
+                                    />
+                                    <Label text="Department" required="true"/>
+                                    <Input
+                                        id="Department"                                 
+                                    />
+
+                                </content>
+                        </Dialog>
+                    </dependents>
+
+   </Page>
+</mvc:View>

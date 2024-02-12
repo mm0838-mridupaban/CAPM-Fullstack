@@ -1,0 +1,10 @@
+{
+    "NewEmployee": {
+        "Id": "",
+        "First_Name": "",
+        "Last_Name": "",
+        "Phone_Number": "",
+        "Email": "",
+        "Department": ""
+      }
+}

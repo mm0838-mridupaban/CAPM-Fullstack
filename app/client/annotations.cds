@@ -1,0 +1,1 @@
+using Company as service from '../../srv/cat-service';

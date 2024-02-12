@@ -1,0 +1,18 @@
+# All employee details
+get http://localhost:4004/odata/v4/company/Employees
+###
+# Single Employee Details
+get http://localhost:4004/odata/v4/company/Employees/12
+
+###
+post http://localhost:4004/odata/v4/company/Employees
+Content-Type: application/json
+
+ {
+      "Id": 3,
+      "First_Name": "Monday",
+      "Last_Name": "ABDC",
+      "Phone_Number": "345678923",
+      "Email":"abc@gmail.com",
+      "Department": "CPR2"
+    }
