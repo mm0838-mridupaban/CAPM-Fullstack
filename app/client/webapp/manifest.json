@@ -130,6 +130,20 @@
           "target": [
             "EmployeeDetails"
           ]
+        },
+        {
+          "name": "DepartmentsList",
+          "pattern": "DepartmentsList",
+          "target": [
+            "DepartmentsList"
+          ]
+        },
+        {
+          "name": "DepartmentDetails",
+          "pattern": "DepartmentDetails/{Id}",
+          "target": [
+            "DepartmentDetails"
+          ]
         }
       ],
       "targets": {
@@ -146,6 +160,20 @@
           "clearControlAggregation": false,
           "viewId": "EmployeeDetails",
           "viewName": "EmployeeDetails"
+        },
+        "DepartmentsList": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DepartmentsList",
+          "viewName": "DepartmentsList"
+        },
+        "DepartmentDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DepartmentDetails",
+          "viewName": "DepartmentDetails"
         }
       }
     },

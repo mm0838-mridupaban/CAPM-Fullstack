@@ -1,0 +1,89 @@
+<mvc:View
+    controllerName="com.sap.client.controller.DepartmentsList"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="Departments"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+    >
+        <content>
+            <Table
+                items="{mainModel>/Departments}"
+                id="table0"
+                selectionChange=""
+            >
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <ToolbarSpacer />
+                            <SearchField
+                                id="searchField"
+                                width="20%"
+                                placeholder="search"
+                                search=".onSearch"
+                            />
+                            <Button
+                                id="createButton"
+                                icon="sap-icon://add"
+                                tooltip="Create"
+                                visible="true"
+                                press="onOpenAddDialog"
+                            >
+                                <layoutData>
+                                    <OverflowToolbarLayoutData
+                                        priority="NeverOverflow"
+                                    />
+                                </layoutData>
+                            </Button>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <items>
+                    <ColumnListItem
+                        type="Active"
+                        id="item0"
+                        press="onSelect"
+                    >
+                        <cells>
+                            <Text
+                                id="id1"
+                                text="{mainModel>Id}"
+                            />
+                            <!-- {mainModel>Id} -->
+                            <Text
+                                id="id2"
+                                text="{mainModel>Name}"
+                            />
+                            <Text
+                                id="id5"
+                                text="{mainModel>HOD}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+                <columns>
+                    <Column>
+                        <header>
+                            <Label text="Id" />
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="Name" />
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="HOD" />
+                        </header>
+                    </Column>
+                </columns>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

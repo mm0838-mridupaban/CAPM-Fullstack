@@ -5,14 +5,29 @@ get http://localhost:4004/odata/v4/company/Employees
 get http://localhost:4004/odata/v4/company/Employees/12
 
 ###
+# Create an Employee
 post http://localhost:4004/odata/v4/company/Employees
 Content-Type: application/json
 
  {
-      "Id": 3,
-      "First_Name": "Monday",
-      "Last_Name": "ABDC",
+      "Id": "7",
+      "First_Name": "Udta",
+      "Last_Name": "Punjab",
       "Phone_Number": "345678923",
       "Email":"abc@gmail.com",
-      "Department": "CPR2"
+      "Department": "KLT"
+    }
+###
+# Get Departments List
+get http://localhost:4004/odata/v4/company/Departments
+###
+
+
+# Create a Department   ----Not working the below api
+post http://localhost:4004/odata/v4/company/Departments
+Content-Type: application/json
+ {
+      "Id": "CAP",
+      "Name": "Cloud Apllication Programing",
+      "HOD": "Johny",
     }

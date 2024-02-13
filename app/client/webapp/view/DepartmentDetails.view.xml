@@ -1,0 +1,110 @@
+<mvc:View
+    controllerName="com.sap.client.controller.DepartmentDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="DepartmentDetails"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <ObjectHeader title="DepartMent Name:- {mainModel>Id}" />
+                <ObjectAttribute text="Head Of Department:- {mainModel>HOD}" />
+            </VBox>
+            <Table
+                id="table0"
+                items="{mainModel>Employee}"
+            >
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <ToolbarSpacer />
+                            <SearchField
+                                id="searchField"
+                                width="20%"
+                                placeholder="search"
+                                search=".onSearch"
+                            />
+                            <Button
+                                id="createButton"
+                                icon="sap-icon://add"
+                                tooltip="Create"
+                                visible="true"
+                                press="onOpenAddDialog"
+                            >
+                                <layoutData>
+                                    <OverflowToolbarLayoutData
+                                        priority="NeverOverflow"
+                                    />
+                                </layoutData>
+                            </Button>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <header>
+                            <Label text="Id" />
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="Name" />
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="Phone Number" />
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="Email" />
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="Department" />
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        type="Active"
+                        id="item0"
+                        press="onSelect"
+                    >
+                        <cells>
+                                        <Text
+                                            id="id1"
+                                            text="{mainModel>Id}"
+                                        />
+                                        <Text
+                                            id="id2"
+                                            text="{mainModel>First_Name} {mainModel>Last_Name}"
+                                        />
+                                        <Text
+                                            id="id3"
+                                            text="{mainModel>Phone_Number}"
+                                        />
+                                        <Text
+                                            id="id4"
+                                            text="{mainModel>Email}"
+                                        />
+                                        <Text
+                                            id="id5"
+                                            text="{mainModel>Department}"
+                                        />
+                                        <!-- <Button id="id6" icon="sap-icon://edit" press="onSelect" /> -->
+                                    </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

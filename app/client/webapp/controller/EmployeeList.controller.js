@@ -35,43 +35,34 @@ function (Controller, JSONModel, Filter, FilterOperator) {
 
         //   ----------------------
 
-        onSearch(oEvent) {
-			// build filter array
-			const aFilter = [];
-			const sQuery = oEvent.getParameter("query");
-            console.log('sQuery',sQuery)
-			if (sQuery) {
-				aFilter.push(new Filter("ProductName", FilterOperator.Contains, sQuery));
-			}
-
-			// filter binding
-			const oList = this.byId("invoiceList");
-			const oBinding = oList.getBinding("items");
-			oBinding.filter(aFilter);
-		},
+        onSearch: function(oEvent) {
+            // build filter array
+            const aFilters = [];
+            const sQuery = oEvent.getParameter("query");
+        
+            if (sQuery) {
+                // Create a filter for each property you want to search
+                const oFirstNameFilter = new Filter("First_Name", FilterOperator.Contains, sQuery);
+                const oLastNameFilter = new Filter("Last_Name", FilterOperator.Contains, sQuery);
+                const oDepartmentFilter = new Filter("Department", FilterOperator.Contains, sQuery);
+        
+                // Combine filters with OR logic
+                aFilters.push(new Filter({
+                    filters: [oFirstNameFilter, oLastNameFilter, oDepartmentFilter],
+                    and: false // Use OR logic
+                }));
+            }
+        
+            // filter binding
+            const oList = this.byId("table0"); // Assuming your table's ID is "table0"
+            const oBinding = oList.getBinding("items");
+            oBinding.filter(aFilters);
+        },
+        
 
 
 
         // ----------------------
-
-        oneEmployeeDetail:function () {
-            var sUrl = this.getOwnerComponent().getModel("mainModel").getServiceUrl() + "Employees/1"
-            var that = this;
-            //Make a Call using AJAX
-          
-            $.ajax({
-                type: "GET",
-                url: sUrl,
-                success: function (data){
-                //     var oModel=that.getView().getModel("EmployeeData");
-                //    oModel.setProperty("/EmployeeList",data.value)
-                    console.log(data);
-                },
-                error: function(){
-                    console.log(error)
-                }
-            });
-          },
 
 
 
@@ -92,33 +83,18 @@ function (Controller, JSONModel, Filter, FilterOperator) {
             oRouter.navTo("EmployeeDetails", { Id: Id});
         },
 
-        // onCreate:function(){
-        //     var sUrl = this.getOwnerComponent().getModel("mainModel").getServiceUrl() + "Employees"
-        //     var that = this;
-        //     //Make a Call using AJAX
-          
-        //     $.ajax({
-        //         type: "GET",
-        //         url: sUrl,
-        //         success: function (data){
-        //         //     var oModel=that.getView().getModel("EmployeeData");
-        //         //    oModel.setProperty("/EmployeeList",data.value)
-        //             console.log(data);
-        //         },
-        //         error: function(){
-        //             console.log(error)
-        //         }
-        //     });
-        // }
-
         
         onOpenAddDialog: function () {
             this.getView().byId("OpenDialog").open();
         },
-
+        // onCancelDialog: function (oEvent) {
+        //     oEvent.getSource().getParent().close();
+        // },
+        onCancelDialog: function () {
+            this.getView().byId("OpenDialog").close();
+        },
 
         onCreate: function(e) {
-            e.preventDefault();
             var sUrl = this.getOwnerComponent().getModel("mainModel").getServiceUrl() + "Employees";
             var that = this;
 
@@ -136,6 +112,8 @@ function (Controller, JSONModel, Filter, FilterOperator) {
                 contentType: "application/json", // Specify content type as JSON
                 data: JSON.stringify(newEmployee), // Convert data to JSON string
                 success: function(data) {
+                    that.onCancelDialog();
+                    that.allEmployeeDetails();
                     console.log("Data posted successfully:", data);
                 },
                 error: function(xhr, status, error) {
