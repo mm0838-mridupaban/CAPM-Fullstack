@@ -17,40 +17,8 @@ sap.ui.define([
 
             onInit: function () {
                 this.allEmployeeDetails();
-
-                // --------------Message Box Trial1--------------------start---------
-                var oMessageTemplate = new MessageItem({
-                    type: '{type}',
-                    title: '{title}',
-                    activeTitle: "{active}",
-                    description: '{description}',
-                    subtitle: '{subtitle}',
-                    counter: '{counter}',
-
-                });
-
-
-                oMessagePopover = new MessagePopover({
-                    items: {
-                        path: '/',
-                        template: oMessageTemplate
-                    },
-                    activeTitlePress: function () {
-                        MessageToast.show('Active title is pressed');
-                    }
-                });
-
-
-                let aMockMessages = []
-                var errorModel = new JSONModel();
-                errorModel.setData(aMockMessages);
-                this.getView().setModel(errorModel);
-
-                this.byId("messagePopoverBtn").addDependent(oMessagePopover);
-
             },
 
-                // --------------Message Box Trial1--------------end---------------
 
             allEmployeeDetails: function () {
                 var sUrl = this.getOwnerComponent().getModel("mainModel").getServiceUrl() + "Employees"
@@ -71,7 +39,7 @@ sap.ui.define([
             },
 
 
-            //   ----------------------
+            //   ----------------on Search---------------------------------
 
             onSearch: function (oEvent) {
                 // build filter array
@@ -100,9 +68,7 @@ sap.ui.define([
 
 
 
-            // ----------------------
-
-
+            // -----------on Selecting, Navigating to  Employee Details-----------
 
             onSelect: function (oEvent) {
                 // Get the selected column item
@@ -121,6 +87,7 @@ sap.ui.define([
                 oRouter.navTo("EmployeeDetails", { Id: Id });
             },
 
+// -----------------------Opening & Closing the Dialog Box (The Signup Form)-------------------------
 
             onOpenAddDialog: function () {
                 this.getView().byId("OpenDialog").open();
@@ -132,74 +99,48 @@ sap.ui.define([
                 this.getView().byId("OpenDialog").close();
             },
 
-            onCreate: function (e) {
+// ------------------------------on Clicking ADD, creating New Employee----------------
 
-                // --------------------Validation-------------------------------
+            onCreate: function () {
                 let oModel = this.getView().getModel("EmployeeData");
                 let newEmployee = oModel.getProperty("/NewEmployee");
-
-                // --------------Message Box Trial1--------------start---------------
-
-                // Mobile Number Validation
-                if (!isValidMobileNumber(newEmployee.Phone_Number)) {
-                    let sMobileNumber = "Invalid mobile number. Please enter a valid mobile number.";
-                    this.addMessageToPopover('Warning', 'Validation Error', true, sMobileNumber, 'Subtitle', 1)
-                    return;
-                }
-
-                // Email ID Validation
-                if (!isValidEmail(newEmployee.Email)) {
-                    let sEmailVali = "Invalid Email. Please enter a valid Email.";
-                    this.addMessageToPopover('Warning', 'Email Validation Error', true, sEmailVali, 'close it', 1)
-                    return;
-                }
-
-                // Employee ID and Last Name Check
-                if (!newEmployee.Id || !newEmployee.Last_Name) {
-                    let UserDetails = "Employee Id and Emplyee Last Name is Required. Please enter a valid Details.";
-                    this.addMessageToPopover('Warning', ' Invalid Credentials ', true, UserDetails, 'close it', 1)
-                    return;
-                }
-
-                function isValidMobileNumber(mobileNumber) {
-                    const mobileRegex = /^\d{10}$/;
-                    return mobileRegex.test(mobileNumber);
-                }
-
-                function isValidEmail(email) {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    return emailRegex.test(email);
-                }
-
-                // --------------Message Box Trial1------------end-----------------
-
 
                 var sUrl = this.getOwnerComponent().getModel("mainModel").getServiceUrl() + "Employees";
                 var that = this;
 
-                console.log('newEmployee', JSON.stringify(newEmployee))
 
-                // Make a POST request using AJAX
-                $.ajax({
-                    headers: {
-                        "X-Requested-With": "XMLHttpsRequest"
-                    },
-                    type: "POST", // Change method to POST
-                    url: sUrl,
-                    contentType: "application/json", // Specify content type as JSON
-                    data: JSON.stringify(newEmployee), // Convert data to JSON string
-                    success: function (data) {
-                        that.onCancelDialog();
-                        that.allEmployeeDetails();
-                        console.log("Data posted successfully:", data);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error posting data:", error);
-                    }
-                });
+                // Sending data to backend-------------------------
+                // $.ajax({
+                //     headers: {
+                //         "X-Requested-With": "XMLHttpsRequest"
+                //     },
+                //     type: "POST",
+                //     url: sUrl,
+                //     contentType: "application/json",
+                //     data: JSON.stringify(newEmployee),
+                //     success: function (data) {
+                //         // Handle successful response
+                //         console.log("Data posted successfully:", data);
+                //         that.onCancelDialog();
+                //         that.allEmployeeDetails();
+                //     },
+                //     error: function (xhr, status, error) {
+                //         // Handle errors
+                //         // MessageBox.error(xhr.status, xhr.statusText)
+                //         MessageBox.error(`${xhr.status} ${xhr.statusText}`);
+                //         console.error("typeof",typeof xhr.status,typeof xhr.statusText);
+                //         console.error("Error posting data:", xhr.status, xhr.statusText,status);
+                //         if (xhr.responseJSON && xhr.responseJSON.message) {
+                //             console.error("Error message:", xhr.responseJSON.message);
+                //         } else {
+                //             console.error("Error details:", error);
+                //         }
+                //     }
+                // });
+                
             },
 
-            // ----------For Department suggestion
+            // ----------For Department suggestion------------------------------------------
 
             onValueHelpRequest: function (oEvent) {
                 var sInputValue = oEvent.getSource().getValue(),
@@ -253,110 +194,15 @@ sap.ui.define([
 
                 // --------------Message Box Trial1-----------------------------
 
-            addMessageToPopover: function (type, title, active, description, subtitle, counter) {
-                var oMessageModel = this.getView().getModel();
-                var aMessages = oMessageModel.oData;
-                if (!Array.isArray(aMessages)) {
-                    aMessages = []
-                }
-                console.log(aMessages);
-                var oNewMessage = {
-                    type: type,
-                    title: title,
-                    active: active,
-                    description: description,
-                    subtitle: subtitle,
-                    counter: counter
-                };
-
-                aMessages.push(oNewMessage);
-                oMessageModel.setData(aMessages)
-                console.log(this.getView().getModel().oData);
-
-
-                if (!oMessagePopover.isOpen()) {
-                    oMessagePopover.toggle(this.byId("messagePopoverBtn"));
-                }
-
-            },
+           
 
 
 
-            buttonTypeFormatter: function () {
-                var sHighestSeverityIcon;
-                var aMessages = this.getView().getModel().oData;
-                console.log(aMessages);
-                aMessages.forEach(function (sMessage) {
-                    switch (sMessage.type) {
-                        case "Error":
-                            sHighestSeverityIcon = "Negative";
-                            break;
-                        case "Warning":
-                            sHighestSeverityIcon = sHighestSeverityIcon !== "Negative" ? "Critical" : sHighestSeverityIcon;
-                            break;
-                        case "Success":
-                            sHighestSeverityIcon = sHighestSeverityIcon !== "Negative" && sHighestSeverityIcon !== "Critical" ? "Success" : sHighestSeverityIcon;
-                            break;
-                        default:
-                            sHighestSeverityIcon = !sHighestSeverityIcon ? "Neutral" : sHighestSeverityIcon;
-                            break;
-                    }
-                });
+            
 
-                return sHighestSeverityIcon;
-            },
+           
+            
 
-            // Display the number of messages with the highest severity
-            highestSeverityMessages: function () {
-                var sHighestSeverityIconType = this.buttonTypeFormatter();
-                var sHighestSeverityMessageType;
-
-                switch (sHighestSeverityIconType) {
-                    case "Negative":
-                        sHighestSeverityMessageType = "Error";
-                        break;
-                    case "Critical":
-                        sHighestSeverityMessageType = "Warning";
-                        break;
-                    case "Success":
-                        sHighestSeverityMessageType = "Success";
-                        break;
-                    default:
-                        sHighestSeverityMessageType = !sHighestSeverityMessageType ? "Information" : sHighestSeverityMessageType;
-                        break;
-                }
-
-                return this.getView().getModel().oData.reduce(function (iNumberOfMessages, oMessageItem) {
-                    return oMessageItem.type === sHighestSeverityMessageType ? ++iNumberOfMessages : iNumberOfMessages;
-                }, 0);
-            },
-
-            // Set the button icon according to the message with the highest severity
-            buttonIconFormatter: function () {
-                var sIcon;
-                var aMessages = this.getView().getModel().oData;;
-                console.log(aMessages);
-                aMessages.forEach(function (sMessage) {
-                    switch (sMessage.type) {
-                        case "Error":
-                            sIcon = "sap-icon://error";
-                            break;
-                        case "Warning":
-                            sIcon = sIcon !== "sap-icon://error" ? "sap-icon://alert" : sIcon;
-                            break;
-                        case "Success":
-                            sIcon = sIcon !== "sap-icon://error" && sIcon !== "sap-icon://alert" ? "sap-icon://sys-enter-2" : sIcon;
-                            break;
-                        default:
-                            sIcon = !sIcon ? "sap-icon://information" : sIcon;
-                            break;
-                    }
-                });
-
-                return sIcon;
-            },
-
-                            // --------------Message Box Trial1----------ends-------------------
 
 
             handleMessagePopoverPress: function (oEvent) {

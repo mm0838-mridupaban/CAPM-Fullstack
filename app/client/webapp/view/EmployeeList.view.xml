@@ -165,12 +165,7 @@
                                         />
                                     </f:content>
                                 </f:SimpleForm>
-                            </content>
-                        </Dialog>
-                    </dependents>
-<!-- Message popup box trial 1................... starts -->
-                    <footer>
-                        <OverflowToolbar>
+                                <OverflowToolbar>
                             <Button
                                 id="messagePopoverBtn"
                                 icon="{ path: '/', formatter: '.buttonIconFormatter' }"
@@ -181,7 +176,11 @@
                             />
                             <ToolbarSpacer />
                         </OverflowToolbar>
-                    </footer>
+                            </content>
+                        </Dialog>
+                    </dependents>
+<!-- Message popup box trial 1................... starts -->
+                        
 <!-- Message popup box trial 1................... ends -->
 
 <!-- <footer>
