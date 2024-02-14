@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        id="selectDialog"
+        title="Department"
+        items="{mainModel>/Departments}"
+        search=".onValueHelpSearch"
+        confirm=".onValueHelpClose"
+        cancel=".onValueHelpClose"
+    >
+        <StandardListItem
+            icon="{ProductPicUrl}"
+            iconDensityAware="false"
+            iconInset="false"
+            title="{mainModel>Id}"
+            description="{mainModel>Name}"
+        />
+    </SelectDialog>
+</core:FragmentDefinition>
