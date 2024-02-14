@@ -18,6 +18,7 @@ sap.ui.define([
             onInit: function () {
                 this.allEmployeeDetails();
 
+                // --------------Message Box Trial1--------------------start---------
                 var oMessageTemplate = new MessageItem({
                     type: '{type}',
                     title: '{title}',
@@ -49,6 +50,7 @@ sap.ui.define([
 
             },
 
+                // --------------Message Box Trial1--------------end---------------
 
             allEmployeeDetails: function () {
                 var sUrl = this.getOwnerComponent().getModel("mainModel").getServiceUrl() + "Employees"
@@ -136,6 +138,7 @@ sap.ui.define([
                 let oModel = this.getView().getModel("EmployeeData");
                 let newEmployee = oModel.getProperty("/NewEmployee");
 
+                // --------------Message Box Trial1--------------start---------------
 
                 // Mobile Number Validation
                 if (!isValidMobileNumber(newEmployee.Phone_Number)) {
@@ -168,7 +171,9 @@ sap.ui.define([
                     return emailRegex.test(email);
                 }
 
-                // -------------------------------------------------------------
+                // --------------Message Box Trial1------------end-----------------
+
+
                 var sUrl = this.getOwnerComponent().getModel("mainModel").getServiceUrl() + "Employees";
                 var that = this;
 
@@ -246,7 +251,7 @@ sap.ui.define([
                 this.byId("productInput").setValue(oSelectedItem.getTitle());
             },
 
-            // -----------------------Mesaage Popover
+                // --------------Message Box Trial1-----------------------------
 
             addMessageToPopover: function (type, title, active, description, subtitle, counter) {
                 var oMessageModel = this.getView().getModel();
@@ -350,6 +355,9 @@ sap.ui.define([
 
                 return sIcon;
             },
+
+                            // --------------Message Box Trial1----------ends-------------------
+
 
             handleMessagePopoverPress: function (oEvent) {
                 oMessagePopover.toggle(oEvent.getSource());

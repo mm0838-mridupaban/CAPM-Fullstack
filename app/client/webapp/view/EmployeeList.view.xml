@@ -168,7 +168,7 @@
                             </content>
                         </Dialog>
                     </dependents>
-
+<!-- Message popup box trial 1................... starts -->
                     <footer>
                         <OverflowToolbar>
                             <Button
@@ -182,8 +182,24 @@
                             <ToolbarSpacer />
                         </OverflowToolbar>
                     </footer>
+<!-- Message popup box trial 1................... ends -->
+
+<!-- <footer>
+            <OverflowToolbar>
+                <Button id="messagePopoverBtn"
+                    press="handleMessagePopoverPress"
+                    icon="{path: '/'}"
+                    type="{path: '/'}"
+                    text="{path: '/'}"/>
+            </OverflowToolbar>
+        </footer>
+     <MessagePopover id="messagePopover" items="{/}">
+        <MessagePopoverItem type="{type}" title="{title}" description="{description}" />
+    </MessagePopover> -->
+
                 </Page>
             </pages>
         </App>
     </Shell>
+
 </mvc:View>
